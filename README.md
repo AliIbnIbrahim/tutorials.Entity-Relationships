@@ -156,7 +156,7 @@ docker version
 ```
 
 ## Cygwin for Windows 
-(no longer used, use debian packer in windows) 
+(no longer used, use debian package for windows) 
 
 We will start up our services using a simple Bash script. Windows users should download [cygwin](http://www.cygwin.com/) to provide a command-line functionality similar to a Linux distribution on Windows.
 
@@ -188,8 +188,7 @@ This command will also import seed data from the previous
 
 In the previous tutorial, we created each **Store** entity individually,
 
-Lets create five shelf units at the same time. This request uses the convenience batch processing endpoint to create
-five shelf entities. Batch processing uses the `/v2/op/update` endpoint with a payload with two attributes -
+Lets create five shelf units at the same time. This request uses the convenience batch processing endpoint to create five shelf entities. Batch processing uses the `/v2/op/update` endpoint with a payload with two attributes -
 `actionType=APPEND` means we will overwrite existing entities if they exist whereas the `entities` attribute holds an
 array of entities we wish to update.
 
@@ -208,10 +207,10 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Shelf:unit001", "type":"Shelf",
       "location":{
-        "type":"geo:json", "value":{ "type":"Point","coordinates":[13.3986112, 52.554699]}
+        "type":"geo:json", "value":{ "type":"Point","coordinates":[35.782321, -5,830821]}
       },
       "name":{
-        "type":"Text", "value":"Corner Unit"
+        "type":"Text", "value":"Etagere D12"
       },
       "maxCapacity":{
         "type":"Integer", "value":50
@@ -220,10 +219,10 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Shelf:unit002", "type":"Shelf",
       "location":{
-        "type":"geo:json","value":{"type":"Point","coordinates":[13.3987221, 52.5546640]}
+        "type":"geo:json","value":{"type":"Point","coordinates":[35.782318, -5,830827]}
       },
       "name":{
-        "type":"Text", "value":"Wall Unit 1"
+        "type":"Text", "value":"Etagere A2"
       },
       "maxCapacity":{
         "type":"Integer", "value":100
@@ -232,10 +231,10 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Shelf:unit003", "type":"Shelf",
       "location":{
-        "type":"geo:json", "value":{"type":"Point","coordinates":[13.3987221, 52.5546640]}
+        "type":"geo:json", "value":{"type":"Point","coordinates":[35.782318, -5,830827]}
       },
       "name":{
-        "type":"Text", "value":"Wall Unit 2"
+        "type":"Text", "value":"Etagere A3"
       },
       "maxCapacity":{
         "type":"Integer", "value":100
@@ -244,10 +243,10 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Shelf:unit004", "type":"Shelf",
       "location":{
-        "type":"geo:json", "value":{"type":"Point","coordinates":[13.390311, 52.507522]}
+        "type":"geo:json", "value":{"type":"Point","coordinates":[35.782311, -5,830832]}
       },
       "name":{
-        "type":"Text", "value":"Corner Unit"
+        "type":"Text", "value":"Etagere angle F1"
       },
       "maxCapacity":{
         "type":"Integer", "value":50
@@ -256,10 +255,10 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Shelf:unit005", "type":"Shelf",
       "location":{
-        "type":"geo:json","value":{"type":"Point","coordinates":[13.390309, 52.50751]}
+        "type":"geo:json","value":{"type":"Point","coordinates":[35.782308, -5,830839]}
       },
       "name":{
-        "type":"Text", "value":"Long Wall Unit"
+        "type":"Text", "value":"Etagere F8"
       },
       "maxCapacity":{
         "type":"Integer", "value":200
@@ -283,7 +282,7 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Product:001", "type":"Product",
       "name":{
-        "type":"Text", "value":"Beer"
+        "type":"Text", "value":"paquet café"
       },
       "size":{
         "type":"Text", "value": "S"
@@ -295,7 +294,7 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Product:002", "type":"Product",
       "name":{
-        "type":"Text", "value":"Red Wine"
+        "type":"Text", "value":"Jus Orange"
       },
       "size":{
         "type":"Text", "value": "M"
@@ -307,7 +306,7 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Product:003", "type":"Product",
       "name":{
-        "type":"Text", "value":"White Wine"
+        "type":"Text", "value":"Jus Pomme"
       },
       "size":{
         "type":"Text", "value": "M"
@@ -319,7 +318,7 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Product:004", "type":"Product",
       "name":{
-        "type":"Text", "value":"Vodka"
+        "type":"Text", "value":"Pot Miel"
       },
       "size":{
         "type":"Text", "value": "XL"
@@ -334,11 +333,9 @@ curl -iX POST \
 
 In both cases we have encoded each entity `id` according to the NGSI-LD
 [specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.04.01_60/gs_cim009v010401p.pdf) - the proposal
-is that each `id` is a URN follows a standard format: `urn:ngsi-ld:<entity-type>:<entity-id>`. This will mean that every
-`id` in the system will be unique.
+is that each `id` is a URN follows a standard format: `urn:ngsi-ld:<entity-type>:<entity-id>`. This will mean that every`id` in the system will be unique.
 
-Shelf information can be requested by making a GET request on the `/v2/entities` endpoint. For example to return the
-context data of the **Shelf** entity with the `id=urn:ngsi-ld:Shelf:unit001`.
+Shelf information can be requested by making a GET request on the `/v2/entities` endpoint. For example to return the context data of the **Shelf** entity with the `id=urn:ngsi-ld:Shelf:unit001`.
 
 #### :three: Request:
 
@@ -366,12 +363,8 @@ As you can see there are currently three additional property attributes present 
 
 ## Creating a one-to-many Relationship
 
-In databases, foreign keys are often used to designate a one-to-many relationship - for example every shelf is found in
-a single store and a single store can hold many shelving units. In order to remember this information we need to add an
-association relationship similar to a foreign key. Batch processing can again be used to amend the existing the
-**Shelf** entities to add a `refStore` attribute holding the relationship to each store. According to the Smart Data
-Modelling Guidelines on [linked data](https://smartdatamodels.org/), when an entity attribute is used as a link to other
-entities it should be named with the prefix `ref` plus the name of the target (linked) entity type.
+In databases, foreign keys are often used to designate a one-to-many relationship - for example every shelf is found in a single store and a single store can hold many shelving units. In order to remember this information we need to add an association relationship similar to a foreign key. Batch processing can again be used to amend the existing the
+**Shelf** entities to add a `refStore` attribute holding the relationship to each store. According to the Smart Data Modelling Guidelines on [linked data](https://smartdatamodels.org/), when an entity attribute is used as a link to other entities it should be named with the prefix `ref` plus the name of the target (linked) entity type.
 
 The value of the `refStore` attribute corresponds to a URN associated to a **Store** entity itself.
 

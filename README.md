@@ -47,30 +47,28 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 
 # Understanding Entities and Relationships
 
-Within the FIWARE platform, the context of an entity represents the state of a physical or conceptural object which
-exists in the real world.
+Within the FIWARE platform, the context of an entity represents the state of a physical or conceptural object which exists in the real world.
 
 ## Entities within a stock management system
 
-For a simple stock management system, we will only need four types of entity. The relationship between our entities is
-defined as shown:
+For a simple stock management system, we will only need four types of entity. The relationship between our entities is defined as shown:
 
 ![](https://fiware.github.io/tutorials.Entity-Relationships/img/entities.png)
 
 -   A store is a real world bricks and mortar building. **Store** entities would have properties such as:
-    -   A name of the store e.g. "Checkpoint Markt"
-    -   An address "Friedrichstraße 44, 10969 Kreuzberg, Berlin"
-    -   A phyiscal location e.g. _52.5075 N, 13.3903 E_
+    -   A name of the store e.g. "Mini Market"
+    -   An address "Avenue Sidi Mohamed Ben Abdallah 24, 90040 Marshan, Tanger"
+    -   A phyiscal location e.g. _35.7823 N, -5,8308 E_
 -   A shelf is a real world device to hold objects which we wish to sell. Each **Shelf** entity would have properties
     such as:
-    -   A name of the shelf e.g. "Wall Unit"
-    -   A phyiscal location e.g. _52.5075 N, 13.3903 E_
+    -   A name of the shelf e.g. "Etagere A2"
+    -   A phyiscal location e.g. _35.7823 N, -5,8308 E_
     -   A maximum capacity
     -   An association to the store in which the shelf is present
 -   A product is defined as something that we sell - it is conceptural object. **Product** entities would have
     properties such as:
-    -   A name of the product e.g. "Vodka"
-    -   A price e.g. 13.99 Euros
+    -   A name of the product e.g. "Jus Orange bouteille"
+    -   A price e.g. 2.90 Dirhams
     -   A size e.g. Small
 -   An inventory item is another conceptural entity, used to assocate products, stores, shelves and physical objects.
     **Inventory Item** entities would have properties such as:
@@ -80,8 +78,7 @@ defined as shown:
     -   A stock count of the quantity of the product available in the warehouse
     -   A stock count of the quantity of the product available on the shelf
 
-As you can see, each of the entities defined above contain some properties which are liable to change. A product could
-change its price, stock could be sold and the shelf count of stock could be reduced and so on.
+As you can see, each of the entities defined above contain some properties which are liable to change. A product could change its price, stock could be sold and the shelf count of stock could be reduced and so on.
 
 > **Note** this tutorial uses the following typographic styling :
 >
@@ -89,8 +86,7 @@ change its price, stock could be sold and the shelf count of stock could be redu
 > -   Data attributes are written in `monospace text`
 > -   Items in the real world use plain text
 >
-> Therefore a store in the real world is represented in the context data by a **Store** entity, and a real world shelf
-> found in a store is represented in the context data by a **Shelf** entity which has a `refStore` attribute.
+> Therefore a store in the real world is represented in the context data by a **Store** entity, and a real world shelf > found in a store is represented in the context data by a **Shelf** entity which has a `refStore` attribute.
 
 # Architecture
 

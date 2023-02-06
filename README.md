@@ -54,6 +54,7 @@ Within the FIWARE platform, the context of an entity represents the state of a p
 For a simple stock management system, we will only need four types of entity. The relationship between our entities is defined as shown:
 
 ![](https://fiware.github.io/tutorials.Entity-Relationships/img/entities.png)
+![](https://github.com/AliIbnIbrahim/tutorials.Entity-Relationships/blob/master/images/entities.png)
 
 -   A store is a real world bricks and mortar building. **Store** entities would have properties such as:
     -   A name of the store e.g. "Mini Market"
@@ -91,8 +92,7 @@ As you can see, each of the entities defined above contain some properties which
 # Architecture
 
 This application will only make use of one FIWARE component - the
-[Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/). Usage of the Orion Context Broker is sufficient
-for an application to qualify as _“Powered by FIWARE”_.
+[Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/). Usage of the Orion Context Broker is sufficient for an application to qualify as _“Powered by FIWARE”_.
 
 Currently, the Orion Context Broker relies on open source [MongoDB](https://www.mongodb.com/) technology to keep
 persistence of the context data it holds. Therefore, the architecture will consist of two elements:

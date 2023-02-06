@@ -53,7 +53,6 @@ Within the FIWARE platform, the context of an entity represents the state of a p
 
 For a simple stock management system, we will only need four types of entity. The relationship between our entities is defined as shown:
 
-![](https://fiware.github.io/tutorials.Entity-Relationships/img/entities.png)
 ![](https://github.com/AliIbnIbrahim/tutorials.Entity-Relationships/blob/master/images/entities.png)
 
 -   A store is a real world bricks and mortar building. **Store** entities would have properties such as:
@@ -105,8 +104,7 @@ persistence of the context data it holds. Therefore, the architecture will consi
 
 Since all interactions between the two elements are initiated by HTTP requests, the entities can be containerized and
 run from exposed ports.
-
-![](https://fiware.github.io/tutorials.Entity-Relationships/img/architecture.png)
+![](https://github.com/AliIbnIbrahim/tutorials.Entity-Relationships/blob/master/images/architecture.png)
 
 The necessary configuration information can be seen in the services section of the associated `docker-compose.yml` file:
 
@@ -139,48 +137,33 @@ mongo-db:
         - default
 ```
 
-Both containers are residing on the same network - the Orion Context Broker is listening on Port `1026` and MongoDB is
-listening on the default port `27017`. Both containers are also exposing the same ports externally - this is purely for
-the tutorial access - so that cUrl or Postman can access them without being part of the same network. The command-line
-initialization should be self explanatory.
+Both containers are residing on the same network - the Orion Context Broker is listening on Port `1026` and MongoDB is listening on the default port `27017`. Both containers are also exposing the same ports externally - this is purely for the tutorial access - so that cUrl or Postman can access them without being part of the same network. The command-line initialization should be self explanatory.
 
 # Prerequisites
 
 ## Docker and Docker Compose
 
-To keep things simple both components will be run using [Docker](https://www.docker.com). **Docker** is a container
-technology which allows to different components isolated into their respective environments.
+see https://github.com/AliIbnIbrahim/tutorials.NGSI-v2 for installation of docker and docker compose 
 
--   To install Docker on Windows follow the instructions [here](https://docs.docker.com/docker-for-windows/)
--   To install Docker on Mac follow the instructions [here](https://docs.docker.com/docker-for-mac/)
--   To install Docker on Linux follow the instructions [here](https://docs.docker.com/install/)
+And ensure that you are using Docker version 20.10 or higher and Docker Compose 1.29 or higher and upgrade if
+necessary.
 
-**Docker Compose** is a tool for defining and running multi-container Docker applications. A
-[YAML file](https://raw.githubusercontent.com/Fiware/tutorials.Entity-Relationships/master/docker-compose.yml) is used
-configure the required services for the application. This means all container services can be brought up in a single
-command. Docker Compose is installed by default as part of Docker for Windows and Docker for Mac, however Linux users
-will need to follow the instructions found [here](https://docs.docker.com/compose/install/)
-
-You can check your current **Docker** and **Docker Compose** versions using the following commands:
+with
 
 ```console
 docker-compose -v
 docker version
 ```
 
-Please ensure that you are using Docker version 20.10 or higher and Docker Compose 1.29 or higher and upgrade if
-necessary.
+## Cygwin for Windows 
+(no longer used, use debian packer in windows) 
 
-## Cygwin for Windows
-
-We will start up our services using a simple Bash script. Windows users should download [cygwin](http://www.cygwin.com/)
-to provide a command-line functionality similar to a Linux distribution on Windows.
+We will start up our services using a simple Bash script. Windows users should download [cygwin](http://www.cygwin.com/) to provide a command-line functionality similar to a Linux distribution on Windows.
 
 # Start Up
 
 All services can be initialised from the command-line by running the
-[services](https://github.com/FIWARE/tutorials.Entity-Relationships/blob/NGSI-v2/services) Bash script provided within
-the repository. Please clone the repository and create the necessary images by running the commands as shown:
+[services](https://github.com/FIWARE/tutorials.Entity-Relationships/blob/NGSI-v2/services) Bash script provided within the repository. Please clone the repository and create the necessary images by running the commands as shown:
 
 ```console
 git clone https://github.com/FIWARE/tutorials.Entity-Relationships.git

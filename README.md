@@ -341,7 +341,7 @@ Shelf information can be requested by making a GET request on the `/v2/entities`
 
 ```console
 curl -X GET \
-  'http://localhost:1026/v2/entities/urn:ngsi-ld:Shelf:unit001/?type=Shelf&options=keyValues'
+  'http://localhost:1026/v2/entities/urn:ngsi-ld:Shelf:unit001/?type=Shelf&options=keyValues'|jq
 ```
 
 #### Response:
@@ -363,8 +363,7 @@ As you can see there are currently three additional property attributes present 
 
 ## Creating a one-to-many Relationship
 
-In databases, foreign keys are often used to designate a one-to-many relationship - for example every shelf is found in a single store and a single store can hold many shelving units. In order to remember this information we need to add an association relationship similar to a foreign key. Batch processing can again be used to amend the existing the
-**Shelf** entities to add a `refStore` attribute holding the relationship to each store. According to the Smart Data Modelling Guidelines on [linked data](https://smartdatamodels.org/), when an entity attribute is used as a link to other entities it should be named with the prefix `ref` plus the name of the target (linked) entity type.
+In databases, foreign keys are often used to designate a one-to-many relationship - for example every shelf is found in a single store and a single store can hold many shelving units. In order to remember this information we need to add an association relationship similar to a foreign key. Batch processing can again be used to amend the existing the *Shelf** entities to add a `refStore` attribute holding the relationship to each store. According to the Smart Data Modelling Guidelines on [linked data](https://smartdatamodels.org/), when an entity attribute is used as a link to other entities it should be named with the prefix `ref` plus the name of the target (linked) entity type.
 
 The value of the `refStore` attribute corresponds to a URN associated to a **Store** entity itself.
 
@@ -426,7 +425,7 @@ Now when the shelf information is requested again, the response has changed and 
 
 ```console
 curl -X GET \
-  'http://localhost:1026/v2/entities/urn:ngsi-ld:Shelf:unit001/?type=Shelf&options=keyValues'
+  'http://localhost:1026/v2/entities/urn:ngsi-ld:Shelf:unit001/?type=Shelf&options=keyValues'|jq
 ```
 
 #### Response:
@@ -458,7 +457,7 @@ by using the `options=values` setting
 
 ```console
 curl -X GET \
-  'http://localhost:1026/v2/entities/urn:ngsi-ld:Shelf:unit001/?type=Shelf&options=values&attrs=refStore'
+  'http://localhost:1026/v2/entities/urn:ngsi-ld:Shelf:unit001/?type=Shelf&options=values&attrs=refStore'|jq
 ```
 
 #### Response:
@@ -477,7 +476,7 @@ Reading from a parent to a child can be done using the `options=count` setting
 
 ```console
 curl -X GET \
-  'http://localhost:1026/v2/entities/?q=refStore==urn:ngsi-ld:Store:001&options=count&attrs=type&type=Shelf'
+  'http://localhost:1026/v2/entities/?q=refStore==urn:ngsi-ld:Store:001&options=count&attrs=type&type=Shelf'|jq
 ```
 
 This request is asking for the `id` of all **Shelf** entities associated to the URN `urn:ngsi-ld:Store:001`, the
@@ -502,15 +501,13 @@ response is a JSON array as shown.
 ]
 ```
 
-In plain English, this can be interpreted as "There are three shelves in `urn:ngsi-ld:Store:001`". The request can be
-altered use the `options=values` and `attrs` parameters to return specific properties of the relevant associated
-entities. For example the request:
+In plain English, this can be interpreted as "There are three shelves in `urn:ngsi-ld:Store:001`". The request can be altered use the `options=values` and `attrs` parameters to return specific properties of the relevant associated entities. For example the request:
 
 #### :eight: Request:
 
 ```console
 curl -X GET \
-  'http://localhost:1026/v2/entities/?q=refStore==urn:ngsi-ld:Store:001&type=Shelf&options=values&attrs=name'
+  'http://localhost:1026/v2/entities/?q=refStore==urn:ngsi-ld:Store:001&type=Shelf&options=values&attrs=name'|jq
 ```
 
 Can be interpreted as request for _Give me the names of all shelves in `urn:ngsi-ld:Store:001`_.
@@ -523,16 +520,11 @@ Can be interpreted as request for _Give me the names of all shelves in `urn:ngsi
 
 ## Creating many-to-many Relationships
 
-Bridge Tables are often used to relate many-to-many relationships. For example, every store will sell a different range
-of products, and each product is sold in many different stores.
+Bridge Tables are often used to relate many-to-many relationships. For example, every store will sell a different range of products, and each product is sold in many different stores.
 
-In order to hold the context information to "place a product onto a shelf in a given store" we will need to create a new
-data entity **InventoryItem** which exists to associate data from other entities. It has a foreign key relationship to
-the **Store**, **Shelf** and **Product** entities and therefore requires relationship attributes called `refStore`,
-`refShelf` and `refProduct`.
+In order to hold the context information to "place a product onto a shelf in a given store" we will need to create a new data entity **InventoryItem** which exists to associate data from other entities. It has a foreign key relationship to the **Store**, **Shelf** and **Product** entities and therefore requires relationship attributes called `refStore`, `refShelf` and `refProduct`.
 
-Assigning a product to a shelf is simply done by creating an entity holding the relationship information and any other
-additional properties (such as `stockCount` and `shelfCount`)
+Assigning a product to a shelf is simply done by creating an entity holding the relationship information and any other additional properties (such as `stockCount` and `shelfCount`)
 
 #### :nine: Request:
 
@@ -567,14 +559,13 @@ curl -iX POST \
 
 When reading from a bridge table entity, the `type` of the entity must be known.
 
-After creating at least one **InventoryItem** entity we can query _Which products are sold in `urn:ngsi-ld:Store:001`?_
-by making the following request
+After creating at least one **InventoryItem** entity we can query _Which products are sold in `urn:ngsi-ld:Store:001`?_ by making the following request
 
 #### :one::zero: Request:
 
 ```console
 curl -X GET \
-  'http://localhost:1026/v2/entities/?q=refStore==urn:ngsi-ld:Store:001&options=values&attrs=refProduct&type=InventoryItem'
+  'http://localhost:1026/v2/entities/?q=refStore==urn:ngsi-ld:Store:001&options=values&attrs=refProduct&type=InventoryItem'|jq
 ```
 
 #### Response:
@@ -589,7 +580,7 @@ Similarly we can request _Which stores are selling `urn:ngsi-ld:Product:001`?_ b
 
 ```console
 curl -X GET \
-  'http://localhost:1026/v2/entities/?q=refProduct==urn:ngsi-ld:Product:001&options=values&attrs=refStore&type=InventoryItem'
+  'http://localhost:1026/v2/entities/?q=refProduct==urn:ngsi-ld:Product:001&options=values&attrs=refStore&type=InventoryItem'|jq
 ```
 
 #### Response:
@@ -600,25 +591,20 @@ curl -X GET \
 
 ## Data Integrity
 
-Context data relationships should only be set up and maintained between entities that exist - in other words the URN
-`urn:ngsi-ld:<entity-type>:<entity-id>` should link to another existing entity within the context. Therefore we must
-take care when deleting an entity that no dangling references remain. Imagine `urn:ngsi-ld:Store:001` is deleted - what
-should happen to the associated the **Shelf** entities?
+Context data relationships should only be set up and maintained between entities that exist - in other words the URN `urn:ngsi-ld:<entity-type>:<entity-id>` should link to another existing entity within the context. Therefore we must take care when deleting an entity that no dangling references remain. Imagine `urn:ngsi-ld:Store:001` is deleted - what should happen to the associated the **Shelf** entities?
 
-It is possible to make a request to see if any remaining entity relationship exists prior to deletion by making a
-request as follows
+It is possible to make a request to see if any remaining entity relationship exists prior to deletion by making a request as follows
 
 #### :one::two: Request:
 
 ```console
 curl -X GET \
-  'http://localhost:1026/v2/entities/?q=refStore==urn:ngsi-ld:Store:001&options=count&attrs=type'
+  'http://localhost:1026/v2/entities/?q=refStore==urn:ngsi-ld:Store:001&options=count&attrs=type'|jq
 ```
 
 #### :one::three: Request:
 
-The response lists a series of **Shelf** and **InventoryItem** entities - there are no **Product** entities since there
-is no direct relationship between product and store.
+The response lists a series of **Shelf** and **InventoryItem** entities - there are no **Product** entities since there is no direct relationship between product and store.
 
 ```json
 [
@@ -645,8 +631,7 @@ If this request returns an empty array, the entity has no associates.
 
 # Next Steps
 
-Want to learn how to add more complexity to your application by adding advanced features? You can find out by reading
-the other [tutorials in this series](https://fiware-tutorials.rtfd.io)
+Want to learn how to add more complexity to your application by adding advanced features? You can find out by reading the other [tutorials in this series](https://fiware-tutorials.rtfd.io)
 
 ---
 

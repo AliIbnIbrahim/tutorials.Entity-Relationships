@@ -207,7 +207,7 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Shelf:unit001", "type":"Shelf",
       "location":{
-        "type":"geo:json", "value":{ "type":"Point","coordinates":[35.782321, -5,830821]}
+        "type":"geo:json", "value":{ "type":"Point","coordinates":[35.782321, -5.830821]}
       },
       "name":{
         "type":"Text", "value":"Etagere D12"
@@ -219,7 +219,7 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Shelf:unit002", "type":"Shelf",
       "location":{
-        "type":"geo:json","value":{"type":"Point","coordinates":[35.782318, -5,830827]}
+        "type":"geo:json","value":{"type":"Point","coordinates":[35.782318, -5.830827]}
       },
       "name":{
         "type":"Text", "value":"Etagere A2"
@@ -231,7 +231,7 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Shelf:unit003", "type":"Shelf",
       "location":{
-        "type":"geo:json", "value":{"type":"Point","coordinates":[35.782318, -5,830827]}
+        "type":"geo:json", "value":{"type":"Point","coordinates":[35.782318, -5.830827]}
       },
       "name":{
         "type":"Text", "value":"Etagere A3"
@@ -243,7 +243,7 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Shelf:unit004", "type":"Shelf",
       "location":{
-        "type":"geo:json", "value":{"type":"Point","coordinates":[35.782311, -5,830832]}
+        "type":"geo:json", "value":{"type":"Point","coordinates":[35.782311, -5.830832]}
       },
       "name":{
         "type":"Text", "value":"Etagere angle F1"
@@ -255,7 +255,7 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Shelf:unit005", "type":"Shelf",
       "location":{
-        "type":"geo:json","value":{"type":"Point","coordinates":[35.782308, -5,830839]}
+        "type":"geo:json","value":{"type":"Point","coordinates":[35.782308, -5.830839]}
       },
       "name":{
         "type":"Text", "value":"Etagere F8"
@@ -420,8 +420,7 @@ curl -iX POST \
 }'
 ```
 
-Now when the shelf information is requested again, the response has changed and includes a new property `refStore`,
-which has been added in the previous step.
+Now when the shelf information is requested again, the response has changed and includes a new property `refStore`, which has been added in the previous step.
 
 #### :five: Request:
 
